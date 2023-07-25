@@ -6,6 +6,7 @@ import type { Metadata } from 'next'
 import { Manrope } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { NextIntlClientProvider } from 'next-intl'
+import Script from 'next/script'
 
 import { AudioProvider } from '~/app/(audio)/AudioProvider'
 import { PodcastLayout } from '~/app/[locale]/PodcastLayout'
@@ -106,6 +107,16 @@ export default async function RootLayout({
             </AudioProvider>
           </NextIntlClientProvider>
         </ThemeProvider>
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-CQTG33VYSE" />
+        <Script>
+          {
+            `window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-CQTG33VYSE');`
+          }
+        </Script>
+        <Script src="https://umami.geekplux.com/script.js" data-website-id="9938ba66-0d53-4153-ab1f-6c665f3fa3f4" />
       </body>
     </html>
   )

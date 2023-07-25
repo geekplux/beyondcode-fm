@@ -108,7 +108,7 @@ export default async function RootLayout({
           </NextIntlClientProvider>
         </ThemeProvider>
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-CQTG33VYSE" />
-        <Script>
+        <Script id="GA">
           {
             `window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}

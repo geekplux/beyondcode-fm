@@ -65,7 +65,7 @@ export const directoryMapper = [
   },
   {
     label: '哔哩哔哩',
-    domains: ['bilibili.com', 'b23.tv'],
+    domains: ['bilibili.com', 'space.bilibili.com', 'b23.tv'],
     icon: BiliBiliIcon,
   },
 ] as const satisfies readonly DirectoryInfo[]

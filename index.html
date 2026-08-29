@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" class="font-sans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1c1917" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fafaf9" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <title><!--app-title--></title>
+    <meta name="description" content="<!--app-description-->" />
+    <!--app-head-->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme') || 'system'
+          var dark =
+            t === 'dark' ||
+            (t !== 'light' &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches)
+          if (dark) document.documentElement.classList.add('dark')
+        } catch (e) {}
+      })()
+    </script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-CQTG33VYSE"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+      gtag('config', 'G-CQTG33VYSE')
+    </script>
+    <script
+      src="https://umami.geekplux.com/script.js"
+      data-website-id="9938ba66-0d53-4153-ab1f-6c665f3fa3f4"
+    ></script>
+  </head>
+  <body>
+    <div id="root"><!--app-html--></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

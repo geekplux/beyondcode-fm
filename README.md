@@ -1,24 +1,30 @@
-## Podcast Studio
+## BeyondCodeFM (React)
 
-This is a template for a podcast website. It is built with:
-- [Next.js](https://nextjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
+Vanilla React port of the production `headless` site (Vite + React Router + Tailwind). Next.js (`next`, `next-intl`, `next-themes`, App Router) has been removed. The site builds to a static, Cloudflare Pages-compatible `dist/` folder (prerendered routes plus `404.html`).
 
-## Getting Started
+Production DNS/Vercel is unchanged until you cut over. `npm run build` writes static files to `dist/`; Cloudflare Pages can host that output as-is.
 
-1. First, you'd need a podcast RSS url and the final production domain URL for your website.
+## Environment
 
 ```dotenv
-NEXT_PUBLIC_PODCAST_RSS="yoururl"
-NEXT_PUBLIC_OG_URL="https://example.com"
+PODCAST_RSS_URL="https://feed.xyzfm.space/nfm8cu8deycn"
 ```
 
-2. Open `podcast.config.ts` to configure your podcast.
+`NEXT_PUBLIC_PODCAST_RSS` and `VITE_PODCAST_RSS` are also accepted. The RSS feed is loaded at dev/build time (not by a browser CORS fetch), then pages are server-rendered in `dev` and prerendered on `build`. If the live feed cannot be fetched, the committed fixture at `src/lib/fixtures/feed.xml` is used so the build still produces HTML.
 
-## Running Locally
+## Running locally
+
 ```bash
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+English is unprefixed (`/`, `/{episodeId}`). Simplified Chinese is prefixed (`/zh-CN`, `/zh-CN/{episodeId}`). `/en` redirects to the unprefixed paths.
+
+## Test / build / preview
+
+```bash
+npm test
+npm run build
+npm run preview
+```

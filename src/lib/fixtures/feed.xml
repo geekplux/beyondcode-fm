@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+  <channel>
+    <title>Fixture Podcast</title>
+    <description>A &lt;b&gt;fixture&lt;/b&gt; show about shipping software.</description>
+    <link>https://example.com/show</link>
+    <itunes:image href="https://example.com/cover.jpg"/>
+    <item>
+      <title>Plain Guid Episode</title>
+      <description><![CDATA[<p>Hello <strong>plain</strong> guid.</p>]]></description>
+      <content:encoded><![CDATA[<h2>Notes</h2><p>Show notes HTML for plain guid.</p>]]></content:encoded>
+      <link>https://example.com/episodes/plain-guid-episode</link>
+      <guid isPermaLink="false">plain-guid-001</guid>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+      <itunes:duration>01:02:03</itunes:duration>
+      <itunes:image href="https://example.com/ep1.jpg"/>
+      <enclosure url="https://example.com/a.mp3" type="audio/mpeg" length="123"/>
+    </item>
+    <item>
+      <title>URL Guid Episode</title>
+      <description>url guid desc</description>
+      <content:encoded><![CDATA[<p>URL guid show notes</p>]]></content:encoded>
+      <link>https://cdn.example.com/episodes/url-guid-ep</link>
+      <guid>https://cdn.example.com/episodes/url-guid-ep</guid>
+      <pubDate>Tue, 02 Jan 2024 00:00:00 GMT</pubDate>
+      <itunes:duration>10:00</itunes:duration>
+      <enclosure url="https://example.com/b.mp3" type="audio/mpeg" length="456"/>
+    </item>
+    <item>
+      <title>Query Guid Episode</title>
+      <description>query desc</description>
+      <link>https://example.com/?ep=query-guid</link>
+      <guid>https://example.com/?ep=query-guid</guid>
+      <pubDate>Wed, 03 Jan 2024 00:00:00 GMT</pubDate>
+      <enclosure url="https://example.com/c.mp3" type="audio/mp4" length="789"/>
+    </item>
+  </channel>
+</rss>

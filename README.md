@@ -22,7 +22,7 @@ npm install
 npm run dev
 ```
 
-English is unprefixed (`/`, `/{episodeId}`). Simplified Chinese is prefixed (`/zh-CN`, `/zh-CN/{episodeId}`). `/en` redirects to the unprefixed paths.
+Routes are unprefixed (`/`, `/{episodeId}`). Legacy `/zh-CN` and `/en` URLs redirect to those paths. Theme is light → dark → system (button in the top-right).
 
 `npm run dev` / `npm run preview` serve the static site only. To exercise the OG Function locally:
 
@@ -52,7 +52,9 @@ This is dashboard work you do once. Cloudflare will build on every push.
 2. Authorize GitHub and select **`geekplux/beyondcode-fm`**.
 3. Setup:
    - **Project name:** `beyondcode-fm`
-   - **Production branch:** `react` while this PR is open; switch to `headless` after you merge.
+   - **Production branch:** `main` (React site after this PR merges)
+   - **Preview:** leave “all non-production branches” on, or include only `react` — pushes to `react` then get `*.beyondcode-fm.pages.dev` previews
+   - **Archive:** `nextjs` is the old Next.js `headless` tree; do not point Pages at it
    - **Framework preset:** None (or Vite)
    - **Build command:** `npm run build`
    - **Build output directory:** `dist`
@@ -79,4 +81,4 @@ Do this only when you are ready to leave Vercel. Until then, leave DNS pointing 
    - Remove the Vercel A/CNAME records.
 3. In the Vercel project, remove the domain so certificates do not fight.
 
-Preview URLs for other branches are automatic. Do not merge this PR into `headless` until the Pages project is building, or Vercel production will serve a non-Next app against a Next adapter.
+Yes: Cloudflare production = `main`, preview = `react` is the normal Pages Git setup. Merge this PR into `main` before cutting DNS. The old Next.js app lives on `nextjs` (renamed from `headless`). Vercel still pointed at `headless` will break after that rename — update or disconnect Vercel.

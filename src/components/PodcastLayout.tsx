@@ -238,7 +238,7 @@ export function PodcastLayout({
           </section>
         </div>
       </header>
-      <main className="border-t border-stone-200 dark:border-neutral-800 lg:relative lg:mb-28 lg:ml-112 lg:border-t-0 xl:ml-120">
+      <main className="border-t border-stone-200 bg-stone-50 dark:border-neutral-800 dark:bg-neutral-900 lg:relative lg:mb-28 lg:ml-112 lg:border-t-0 xl:ml-120">
         <Waveform className="fixed left-0 top-0 z-10 h-20 w-full opacity-75" />
         <div className="relative">{children}</div>
       </main>

@@ -5,7 +5,7 @@ import { loadEnv, type Plugin, type ViteDevServer } from 'vite'
 
 import { loadPodcastFeed } from './src/lib/load-rss'
 import { resolveRssUrl } from './src/lib/podcast-config'
-import { pathToHtmlFile, stripDefaultLocalePrefix } from './src/lib/locale'
+import { pathToHtmlFile, stripLocalePrefix } from './src/lib/locale'
 import { applyHtmlTemplate } from './src/lib/ssr-template'
 
 const VIRTUAL_ID = 'virtual:podcast-feed'
@@ -117,7 +117,7 @@ export const rssUrl = ${JSON.stringify(feed.rssUrl)};`
               return
             }
             const urlPath = decodeURIComponent(url.split('?')[0] ?? '/')
-            const redirectTo = stripDefaultLocalePrefix(urlPath)
+            const redirectTo = stripLocalePrefix(urlPath)
             if (redirectTo) {
               res.statusCode = 301
               res.setHeader('Location', redirectTo)
@@ -151,7 +151,7 @@ export const rssUrl = ${JSON.stringify(feed.rssUrl)};`
             '/'
           ).split('?')[0] ?? '/',
         )
-        const redirectTo = stripDefaultLocalePrefix(urlPath)
+        const redirectTo = stripLocalePrefix(urlPath)
         if (redirectTo) {
           res.statusCode = 301
           res.setHeader('Location', redirectTo)

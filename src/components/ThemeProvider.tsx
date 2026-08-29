@@ -8,12 +8,18 @@ import {
   type ReactNode,
 } from 'react'
 
-export type Theme = 'system' | 'light' | 'dark'
+import {
+  nextTheme,
+  readStoredTheme,
+  resolveTheme,
+  type Theme,
+} from '../lib/theme'
 
 type ThemeContextValue = {
   theme: Theme
   resolvedTheme: 'light' | 'dark'
   setTheme: (theme: Theme) => void
+  cycleTheme: () => void
 }
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined)
@@ -26,7 +32,7 @@ function getSystemTheme(): 'light' | 'dark' {
 }
 
 function applyTheme(theme: Theme) {
-  const resolved = theme === 'system' ? getSystemTheme() : theme
+  const resolved = resolveTheme(theme, getSystemTheme())
   const root = document.documentElement
   const style = document.createElement('style')
   style.appendChild(
@@ -34,6 +40,7 @@ function applyTheme(theme: Theme) {
   )
   document.head.appendChild(style)
   root.classList.toggle('dark', resolved === 'dark')
+  root.style.colorScheme = resolved
   window.getComputedStyle(style).opacity
   document.head.removeChild(style)
   return resolved
@@ -45,10 +52,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    const stored = window.localStorage.getItem('theme')
-    if (stored === 'light' || stored === 'dark' || stored === 'system') {
-      setThemeState(stored)
-    }
+    const stored = readStoredTheme(window.localStorage.getItem('theme'))
+    setThemeState(stored)
+    setResolvedTheme(applyTheme(stored))
     setReady(true)
   }, [])
 
@@ -71,9 +77,13 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     setThemeState(next)
   }, [])
 
+  const cycleTheme = useCallback(() => {
+    setThemeState((current) => nextTheme(current))
+  }, [])
+
   const value = useMemo(
-    () => ({ theme, resolvedTheme, setTheme }),
-    [theme, resolvedTheme, setTheme],
+    () => ({ theme, resolvedTheme, setTheme, cycleTheme }),
+    [theme, resolvedTheme, setTheme, cycleTheme],
   )
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>

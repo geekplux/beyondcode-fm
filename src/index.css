@@ -8,8 +8,15 @@
 
 html,
 body {
-  @apply antialiased;
+  @apply antialiased bg-stone-50 text-stone-900;
   text-rendering: optimizeLegibility;
+  color-scheme: light;
+}
+
+html.dark,
+html.dark body {
+  @apply bg-neutral-900 text-neutral-100;
+  color-scheme: dark;
 }
 
 :root {

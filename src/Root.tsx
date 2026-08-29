@@ -9,8 +9,6 @@ import { NotFoundPage } from './components/NotFoundPage'
 import { PodcastLayout } from './components/PodcastLayout'
 import { ThemeProvider } from './components/ThemeProvider'
 import { findEpisode } from './lib/episode-id'
-import { I18nProvider } from './lib/i18n'
-import type { Locale } from './lib/locale'
 
 function StripTrailingSlash({ children }: { children: React.ReactNode }) {
   const location = useLocation()
@@ -23,16 +21,6 @@ function StripTrailingSlash({ children }: { children: React.ReactNode }) {
     )
   }
   return <>{children}</>
-}
-
-function LocaleShell({ locale }: { locale: Locale }) {
-  return (
-    <I18nProvider locale={locale}>
-      <PodcastLayout podcast={podcast}>
-        <Outlet />
-      </PodcastLayout>
-    </I18nProvider>
-  )
 }
 
 function HomeRoute() {
@@ -48,9 +36,17 @@ function EpisodeRoute() {
   return <EpisodePage episode={episode} />
 }
 
-function EnEpisodeRedirect() {
+function LegacyEpisodeRedirect() {
   const { episode } = useParams()
   return <Navigate to={`/${episode ?? ''}`} replace />
+}
+
+function Layout() {
+  return (
+    <PodcastLayout podcast={podcast}>
+      <Outlet />
+    </PodcastLayout>
+  )
 }
 
 export function Root() {
@@ -60,25 +56,14 @@ export function Root() {
         <StripTrailingSlash>
           <Routes>
             <Route path="/en" element={<Navigate to="/" replace />} />
-            <Route path="/en/:episode" element={<EnEpisodeRedirect />} />
-            <Route path="/zh-CN" element={<LocaleShell locale="zh-CN" />}>
+            <Route path="/en/:episode" element={<LegacyEpisodeRedirect />} />
+            <Route path="/zh-CN" element={<Navigate to="/" replace />} />
+            <Route path="/zh-CN/:episode" element={<LegacyEpisodeRedirect />} />
+            <Route element={<Layout />}>
               <Route index element={<HomeRoute />} />
               <Route path=":episode" element={<EpisodeRoute />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
-            <Route path="/" element={<LocaleShell locale="en" />}>
-              <Route index element={<HomeRoute />} />
-              <Route path=":episode" element={<EpisodeRoute />} />
-            </Route>
-            <Route
-              path="*"
-              element={
-                <I18nProvider locale="en">
-                  <PodcastLayout podcast={podcast}>
-                    <NotFoundPage />
-                  </PodcastLayout>
-                </I18nProvider>
-              }
-            />
           </Routes>
         </StripTrailingSlash>
       </AudioProvider>

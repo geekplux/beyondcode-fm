@@ -53,7 +53,7 @@ export function render(url: string): RenderResult {
     `<meta property="og:title" content="${escapeAttribute(title)}" />`,
     `<meta property="og:description" content="${escapeAttribute(description)}" />`,
     `<meta property="og:type" content="website" />`,
-    `<meta property="og:locale" content="${escapeAttribute(parsed.locale)}" />`,
+    `<meta property="og:locale" content="en" />`,
     `<meta property="og:image" content="${escapeAttribute(image)}" />`,
     `<meta property="og:image:width" content="${OG_WIDTH}" />`,
     `<meta property="og:image:height" content="${OG_HEIGHT}" />`,
@@ -67,7 +67,7 @@ export function render(url: string): RenderResult {
   return {
     html,
     status,
-    lang: parsed.locale,
+    lang: 'en',
     title,
     description,
     head,
@@ -76,10 +76,9 @@ export function render(url: string): RenderResult {
 }
 
 export function getPrerenderPaths() {
-  const paths = ['/', '/zh-CN']
+  const paths = ['/']
   for (const episode of episodes) {
     paths.push(`/${episode.id}`)
-    paths.push(`/zh-CN/${episode.id}`)
   }
   return paths
 }

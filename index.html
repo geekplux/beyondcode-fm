@@ -20,7 +20,12 @@
             t === 'dark' ||
             (t !== 'light' &&
               window.matchMedia('(prefers-color-scheme: dark)').matches)
-          if (dark) document.documentElement.classList.add('dark')
+          if (dark) {
+            document.documentElement.classList.add('dark')
+            document.documentElement.style.colorScheme = 'dark'
+          } else {
+            document.documentElement.style.colorScheme = 'light'
+          }
         } catch (e) {}
       })()
     </script>

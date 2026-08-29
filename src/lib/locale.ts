@@ -1,18 +1,9 @@
-export const LOCALES = ['en', 'zh-CN'] as const
-export type Locale = (typeof LOCALES)[number]
-export const DEFAULT_LOCALE: Locale = 'en'
-
-export function isLocale(value: string): value is Locale {
-  return (LOCALES as readonly string[]).includes(value)
+export function homePath(): string {
+  return '/'
 }
 
-export function homePath(locale: Locale): string {
-  return locale === DEFAULT_LOCALE ? '/' : `/${locale}`
-}
-
-export function episodePath(locale: Locale, id: string): string {
-  const base = homePath(locale)
-  return base === '/' ? `/${id}` : `${base}/${id}`
+export function episodePath(id: string): string {
+  return `/${id}`
 }
 
 export function normalizePathname(pathname: string): string {
@@ -23,11 +14,15 @@ export function normalizePathname(pathname: string): string {
   return noQuery || '/'
 }
 
-/** next-intl default-locale-as-needed: `/en` and `/en/...` redirect to unprefixed paths. */
-export function stripDefaultLocalePrefix(pathname: string): string | null {
+const LEGACY_PREFIXES = ['/zh-CN', '/en'] as const
+
+/** Old locale prefixes redirect to unprefixed routes. */
+export function stripLocalePrefix(pathname: string): string | null {
   const clean = normalizePathname(pathname)
-  if (clean === '/en') return '/'
-  if (clean.startsWith('/en/')) return clean.slice(3) || '/'
+  for (const prefix of LEGACY_PREFIXES) {
+    if (clean === prefix) return '/'
+    if (clean.startsWith(`${prefix}/`)) return clean.slice(prefix.length) || '/'
+  }
   return null
 }
 
@@ -38,32 +33,19 @@ export function pathToHtmlFile(pathname: string): string {
 }
 
 export type ParsedPath = {
-  locale: Locale
   episodeId: string | null
   notFound: boolean
 }
 
 export function parsePath(pathname: string): ParsedPath {
-  const clean = normalizePathname(pathname)
-  const parts = clean.split('/').filter(Boolean)
+  const canonical = stripLocalePrefix(pathname) ?? normalizePathname(pathname)
+  const parts = canonical.split('/').filter(Boolean)
 
   if (parts.length === 0) {
-    return { locale: DEFAULT_LOCALE, episodeId: null, notFound: false }
+    return { episodeId: null, notFound: false }
   }
-
-  if (parts[0] === 'zh-CN') {
-    if (parts.length === 1) {
-      return { locale: 'zh-CN', episodeId: null, notFound: false }
-    }
-    if (parts.length === 2) {
-      return { locale: 'zh-CN', episodeId: parts[1], notFound: false }
-    }
-    return { locale: 'zh-CN', episodeId: null, notFound: true }
-  }
-
   if (parts.length === 1) {
-    return { locale: DEFAULT_LOCALE, episodeId: parts[0], notFound: false }
+    return { episodeId: parts[0], notFound: false }
   }
-
-  return { locale: DEFAULT_LOCALE, episodeId: null, notFound: true }
+  return { episodeId: null, notFound: true }
 }

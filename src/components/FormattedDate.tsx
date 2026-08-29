@@ -1,21 +1,18 @@
 import type { TimeHTMLAttributes } from 'react'
 import { useMemo } from 'react'
 
-import { useLocale } from '../lib/i18n'
-
 export function FormattedDate({
   date,
   ...props
 }: TimeHTMLAttributes<HTMLTimeElement> & { date: Date }) {
-  const locale = useLocale()
   const dateFormatter = useMemo(
     () =>
-      new Intl.DateTimeFormat(locale, {
+      new Intl.DateTimeFormat('en', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
       }),
-    [locale],
+    [],
   )
 
   return (

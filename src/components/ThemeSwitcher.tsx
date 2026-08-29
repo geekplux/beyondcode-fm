@@ -4,30 +4,27 @@ import { useEffect, useState } from 'react'
 import { useTheme } from './ThemeProvider'
 
 export function ThemeSwitcher() {
-  const { theme, resolvedTheme, setTheme } = useTheme()
+  const { theme, cycleTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
-
-  const toggleTheme = () => {
-    switch (theme) {
-      case 'system':
-        setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
-        break
-      case 'dark':
-      case 'light':
-        setTheme('system')
-        break
-    }
-  }
 
   useEffect(() => setMounted(true), [])
 
   if (!mounted) return null
 
+  const label =
+    theme === 'system'
+      ? 'Theme: system (click for light)'
+      : theme === 'light'
+        ? 'Theme: light (click for dark)'
+        : 'Theme: dark (click for system)'
+
   return (
     <button
       type="button"
-      className="rounded-lg bg-stone-50 p-1.5 shadow-xl dark:bg-neutral-900"
-      onClick={toggleTheme}
+      className="rounded-lg bg-stone-50 p-1.5 shadow-xl dark:bg-neutral-800"
+      onClick={cycleTheme}
+      aria-label={label}
+      title={label}
     >
       {theme === 'system' && <SystemThemeIcon />}
       {theme === 'dark' && <DarkThemeIcon />}

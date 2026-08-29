@@ -64,25 +64,17 @@ describe('episode lookup against parsed fixture', () => {
     expect(findEpisode(episodes, 'missing-id')).toBeUndefined()
   })
 
-  it('builds in-locale home and episode paths from parsed ids', () => {
+  it('builds home and episode paths from parsed ids', () => {
     const { episodes } = parsePodcastFeed(xml)
     const id = episodes[0]!.id
 
-    expect(homePath('en')).toBe('/')
-    expect(homePath('zh-CN')).toBe('/zh-CN')
-    expect(episodePath('en', id)).toBe('/plain-guid-001')
-    expect(episodePath('zh-CN', id)).toBe('/zh-CN/plain-guid-001')
-    expect(parsePath(episodePath('en', id))).toEqual({
-      locale: 'en',
+    expect(homePath()).toBe('/')
+    expect(episodePath(id)).toBe('/plain-guid-001')
+    expect(parsePath(episodePath(id))).toEqual({
       episodeId: id,
       notFound: false,
     })
-    expect(parsePath(episodePath('zh-CN', id))).toEqual({
-      locale: 'zh-CN',
-      episodeId: id,
-      notFound: false,
-    })
-    expect(findEpisode(episodes, parsePath(episodePath('en', id)).episodeId ?? '')?.id).toBe(
+    expect(findEpisode(episodes, parsePath(episodePath(id)).episodeId ?? '')?.id).toBe(
       id,
     )
   })

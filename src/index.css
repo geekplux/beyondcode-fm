@@ -1,0 +1,39 @@
+@import '@fontsource/manrope/400.css';
+@import '@fontsource/manrope/500.css';
+@import '@fontsource/manrope/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  @apply antialiased bg-stone-50 text-stone-900;
+  text-rendering: optimizeLegibility;
+  color-scheme: light;
+}
+
+html.dark,
+html.dark body {
+  @apply bg-neutral-900 text-neutral-100;
+  color-scheme: dark;
+}
+
+:root {
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-sans-en: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  overscroll-behavior: none;
+}
+
+::selection {
+  background: theme('colors.stone.700');
+  color: theme('colors.stone.50');
+}
+
+.dark ::selection {
+  background: theme('colors.stone.300');
+  color: theme('colors.stone.900');
+}

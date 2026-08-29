@@ -10,12 +10,14 @@
 # testing
 /coverage
 
-# next.js
+# next.js (removed)
 /.next/
 /out/
 
 # production
 /build
+/dist
+.vite
 
 # misc
 .DS_Store
@@ -31,6 +33,10 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# cloudflare
+.wrangler
+.dev.vars
 
 # typescript
 *.tsbuildinfo

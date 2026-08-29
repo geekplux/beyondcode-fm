@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import type { IncomingMessage, ServerResponse } from 'node:http'
-import type { Plugin, ViteDevServer } from 'vite'
+import { loadEnv, type Plugin, type ViteDevServer } from 'vite'
 
 import { loadPodcastFeed } from './src/lib/load-rss'
 import { resolveRssUrl } from './src/lib/podcast-config'
@@ -78,6 +78,12 @@ export function podcastPlugin(): Plugin {
 
   return {
     name: 'podcast-feed',
+    config(_config, { mode }) {
+      const env = loadEnv(mode, process.cwd(), '')
+      for (const [key, value] of Object.entries(env)) {
+        if (process.env[key] == null) process.env[key] = value
+      }
+    },
     async buildStart() {
       if (process.env.VITEST) return
       await loadFeed()

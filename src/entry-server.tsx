@@ -6,6 +6,7 @@ import { Root } from './Root'
 import { findEpisode } from './lib/episode-id'
 import { htmlToText } from './lib/html'
 import { normalizePathname, parsePath } from './lib/locale'
+import { OG_HEIGHT, OG_WIDTH, ogImageUrl } from './lib/og'
 import type { RenderResult } from './lib/ssr-template'
 
 function escapeAttribute(value: string) {
@@ -22,6 +23,7 @@ export function render(url: string): RenderResult {
   let status = 200
   let title = podcast.title
   let description = htmlToText(podcast.description).split('\n').join(' ')
+  let cover = podcast.coverArt
 
   if (parsed.notFound) {
     status = 404
@@ -34,6 +36,7 @@ export function render(url: string): RenderResult {
     } else {
       title = `${episode.title} | ${podcast.title}`
       description = htmlToText(episode.description).split('\n').join(' ')
+      cover = episode.coverArt || podcast.coverArt
     }
   }
 
@@ -43,11 +46,21 @@ export function render(url: string): RenderResult {
     </StaticRouter>,
   )
 
+  const image = ogImageUrl(cover)
   const head = [
     `<link rel="icon" href="${escapeAttribute(podcast.coverArt)}" />`,
     `<link rel="apple-touch-icon" href="${escapeAttribute(podcast.coverArt)}" />`,
     `<meta property="og:title" content="${escapeAttribute(title)}" />`,
     `<meta property="og:description" content="${escapeAttribute(description)}" />`,
+    `<meta property="og:type" content="website" />`,
+    `<meta property="og:locale" content="${escapeAttribute(parsed.locale)}" />`,
+    `<meta property="og:image" content="${escapeAttribute(image)}" />`,
+    `<meta property="og:image:width" content="${OG_WIDTH}" />`,
+    `<meta property="og:image:height" content="${OG_HEIGHT}" />`,
+    `<meta name="twitter:card" content="summary_large_image" />`,
+    `<meta name="twitter:title" content="${escapeAttribute(title)}" />`,
+    `<meta name="twitter:description" content="${escapeAttribute(description)}" />`,
+    `<meta name="twitter:image" content="${escapeAttribute(image)}" />`,
     `<meta name="keywords" content="${escapeAttribute(podcast.title)}" />`,
   ].join('')
 

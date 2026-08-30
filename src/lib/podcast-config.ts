@@ -27,10 +27,5 @@ export const podcastConfig: PodcastConfig = {
 export function resolveRssUrl(
   env: Record<string, string | undefined> = process.env,
 ): string {
-  return (
-    env.PODCAST_RSS_URL ||
-    env.NEXT_PUBLIC_PODCAST_RSS ||
-    env.VITE_PODCAST_RSS ||
-    DEFAULT_RSS_URL
-  )
+  return env.PODCAST_RSS_URL || DEFAULT_RSS_URL
 }

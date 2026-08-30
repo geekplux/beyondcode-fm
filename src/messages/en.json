@@ -1,9 +1,4 @@
 {
-  "Languages": {
-    "placeholder": "Select a language",
-    "en": "English",
-    "zh-CN": "简体中文"
-  },
   "Layout": {
     "about": "About",
     "show_more": "Show more",

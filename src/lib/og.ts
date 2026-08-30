@@ -16,12 +16,7 @@ export function parseCoverUrl(raw: string | null | undefined): string | null {
 export function resolveOgBaseUrl(
   env: Record<string, string | undefined> = process.env,
 ): string {
-  return (
-    env.OG_PUBLIC_URL ||
-    env.NEXT_PUBLIC_OG_URL ||
-    env.VITE_OG_URL ||
-    ''
-  ).replace(/\/+$/, '')
+  return (env.NEXT_PUBLIC_OG_URL || '').replace(/\/+$/, '')
 }
 
 export function ogImagePath(cover: string): string {

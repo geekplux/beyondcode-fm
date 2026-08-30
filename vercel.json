@@ -1,7 +1,0 @@
-{
-  "github": {
-    "silent": true
-  },
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist"
-}

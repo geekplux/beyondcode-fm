@@ -17,8 +17,6 @@ import {
 
 type ThemeContextValue = {
   theme: Theme
-  resolvedTheme: 'light' | 'dark'
-  setTheme: (theme: Theme) => void
   cycleTheme: () => void
 }
 
@@ -43,47 +41,40 @@ function applyTheme(theme: Theme) {
   root.style.colorScheme = resolved
   window.getComputedStyle(style).opacity
   document.head.removeChild(style)
-  return resolved
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('system')
-  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light')
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
     const stored = readStoredTheme(window.localStorage.getItem('theme'))
     setThemeState(stored)
-    setResolvedTheme(applyTheme(stored))
+    applyTheme(stored)
     setReady(true)
   }, [])
 
   useEffect(() => {
     if (!ready) return
-    const resolved = applyTheme(theme)
-    setResolvedTheme(resolved)
+    applyTheme(theme)
     window.localStorage.setItem('theme', theme)
     const media = window.matchMedia('(prefers-color-scheme: dark)')
     const onChange = () => {
       if (theme === 'system') {
-        setResolvedTheme(applyTheme('system'))
+        applyTheme('system')
       }
     }
     media.addEventListener('change', onChange)
     return () => media.removeEventListener('change', onChange)
   }, [theme, ready])
 
-  const setTheme = useCallback((next: Theme) => {
-    setThemeState(next)
-  }, [])
-
   const cycleTheme = useCallback(() => {
     setThemeState((current) => nextTheme(current))
   }, [])
 
   const value = useMemo(
-    () => ({ theme, resolvedTheme, setTheme, cycleTheme }),
-    [theme, resolvedTheme, setTheme, cycleTheme],
+    () => ({ theme, cycleTheme }),
+    [theme, cycleTheme],
   )
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>

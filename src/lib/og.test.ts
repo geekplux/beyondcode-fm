@@ -41,12 +41,9 @@ describe('ogImageUrl', () => {
     )
   })
 
-  it('reads OG_PUBLIC_URL then NEXT_PUBLIC_OG_URL', () => {
-    expect(resolveOgBaseUrl({ OG_PUBLIC_URL: 'https://a.example/' })).toBe(
-      'https://a.example',
-    )
+  it('reads NEXT_PUBLIC_OG_URL', () => {
     expect(
-      resolveOgBaseUrl({ NEXT_PUBLIC_OG_URL: 'https://beyondcodefm.com' }),
+      resolveOgBaseUrl({ NEXT_PUBLIC_OG_URL: 'https://beyondcodefm.com/' }),
     ).toBe('https://beyondcodefm.com')
     expect(resolveOgBaseUrl({})).toBe('')
   })

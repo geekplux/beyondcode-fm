@@ -9,6 +9,8 @@ import { normalizePathname, parsePath } from './lib/locale'
 import { OG_HEIGHT, OG_WIDTH, ogImageUrl } from './lib/og'
 import type { RenderResult } from './lib/ssr-template'
 
+/** Shared by vite-plugin-podcast (dev SSR) and scripts/prerender.js. */
+
 function escapeAttribute(value: string) {
   return value
     .replaceAll('&', '&amp;')

@@ -1,3 +1,5 @@
+/** ICU-lite: `{name}` and `{n, plural, =1 {…} other {…}}` for en.json strings. */
+
 function readBalanced(template: string, start: number) {
   let depth = 0
   for (let index = start; index < template.length; index += 1) {

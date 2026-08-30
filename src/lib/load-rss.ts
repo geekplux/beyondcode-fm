@@ -6,6 +6,8 @@ import type { PodcastFeed } from '../types'
 import { resolveRssUrl } from './podcast-config'
 import { parsePodcastFeed } from './rss'
 
+/** Node-side RSS load. Never call this from a browser component. */
+
 export const FIXTURE_FEED_PATH = fileURLToPath(
   new URL('./fixtures/feed.xml', import.meta.url),
 )

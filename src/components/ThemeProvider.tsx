@@ -15,6 +15,8 @@ import {
   type Theme,
 } from '../lib/theme'
 
+/** Applies html.dark from localStorage.theme. Cycle is light → dark → system. */
+
 type ThemeContextValue = {
   theme: Theme
   cycleTheme: () => void

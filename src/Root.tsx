@@ -49,6 +49,7 @@ function Layout() {
   )
 }
 
+/** Canonical unprefixed routes plus leftover /en and /zh-CN redirects. */
 export function Root() {
   return (
     <ThemeProvider>

@@ -12,6 +12,7 @@
     <title><!--app-title--></title>
     <meta name="description" content="<!--app-description-->" />
     <!--app-head-->
+    <!-- FOUC: must stay in sync with ThemeProvider (localStorage.theme, html.dark). -->
     <script>
       (function () {
         try {
@@ -47,6 +48,7 @@
     ></script>
   </head>
   <body>
+    <!-- applyHtmlTemplate injects data-path on #root for hydration. -->
     <div id="root"><!--app-html--></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

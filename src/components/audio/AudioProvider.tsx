@@ -26,6 +26,8 @@ import {
   toggleMute as toggleMuteAudio,
 } from '../../lib/player'
 
+/** Thin React adapter over src/lib/player.ts. */
+
 type Player = {
   playing: boolean
   muted: boolean

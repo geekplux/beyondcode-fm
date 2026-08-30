@@ -6,11 +6,14 @@ export type Podcast = {
 }
 
 export type Episode = {
+  /** Encoded by encodeEpisodeId — not always the raw RSS guid. */
   id: string
   title: string
   description: string
   link: string
+  /** Epoch milliseconds from pubDate. */
   published: number
+  /** content:encoded when present, otherwise description. */
   content: string
   duration: string
   coverArt?: string

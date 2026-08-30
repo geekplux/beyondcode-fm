@@ -1,3 +1,5 @@
+/** Fills index.html placeholders. Keep the <!--app-*--> markers in sync. */
+
 export type RenderResult = {
   html: string
   status: number

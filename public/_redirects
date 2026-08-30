@@ -1,3 +1,4 @@
+# Same leftover locale prefixes as stripLocalePrefix / Root.tsx.
 /en / 301
 /en/* /:splat 301
 /zh-CN / 301

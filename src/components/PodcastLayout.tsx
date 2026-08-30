@@ -15,6 +15,7 @@ import { AudioPlayer } from './audio/AudioPlayer'
 import { PodcastDirectoryLink } from './PodcastDirectoryLink'
 import { ThemeSwitcher } from './ThemeSwitcher'
 
+/** Seeded PRNG so the decorative waveform matches between SSR and hydrate. */
 function randomBetween(min: number, max: number, seed = 1) {
   return () => {
     let rand = Math.sin(seed++) * 10000

@@ -1,8 +1,8 @@
 import type React from 'react'
-import { ActivityIcon, Mic2Icon, UserIcon } from 'lucide-react'
+import { ActivityIcon, BarChart3Icon, ChevronRightIcon, Mic2Icon, UserIcon } from 'lucide-react'
 import { Fragment, useEffect, useId, useMemo, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import remarkGfm from 'remark-gfm'
 import { rssUrl } from 'virtual:podcast-feed'
 
@@ -162,6 +162,8 @@ export function PodcastLayout({
 }) {
   const t = useTranslations('Layout')
   const paths = useLocalePaths()
+  const location = useLocation()
+  const onStats = location.pathname === paths.stats || location.pathname === `${paths.stats}/`
 
   return (
     <>
@@ -186,6 +188,48 @@ export function PodcastLayout({
               <Link to={paths.home}>{podcast.title}</Link>
             </p>
           </div>
+          <Link
+            to={paths.stats}
+            aria-current={onStats ? 'page' : undefined}
+            className={clsxm(
+              'mt-8 flex items-center gap-3 rounded-2xl border px-3.5 py-3 text-left shadow-sm transition',
+              onStats
+                ? 'border-stone-900 bg-stone-900 text-white shadow-stone-900/20 dark:border-neutral-100 dark:bg-neutral-100 dark:text-neutral-900'
+                : 'border-stone-200 bg-white text-stone-900 hover:border-stone-300 hover:shadow-md dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-100 dark:hover:border-neutral-500',
+            )}
+          >
+            <span
+              className={clsxm(
+                'flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#4989E8] via-[#6159DA] to-[#FF54AD] text-white shadow-inner',
+              )}
+            >
+              <BarChart3Icon className="h-4 w-4" aria-hidden="true" />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-sm font-bold leading-5">
+                {t('statistics')}
+              </span>
+              <span
+                className={clsxm(
+                  'mt-0.5 block text-xs font-medium',
+                  onStats
+                    ? 'text-white/70 dark:text-neutral-600'
+                    : 'text-stone-500 dark:text-neutral-400',
+                )}
+              >
+                Subscribers, views, comments
+              </span>
+            </span>
+            <ChevronRightIcon
+              className={clsxm(
+                'h-4 w-4 shrink-0',
+                onStats
+                  ? 'text-white/70 dark:text-neutral-500'
+                  : 'text-stone-400 dark:text-neutral-500',
+              )}
+              aria-hidden="true"
+            />
+          </Link>
           <AboutSection className="mt-12 hidden lg:block">
             {podcast.description}
           </AboutSection>

@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 
 import en from '../messages/en.json'
 import { formatMessage } from './format-message'
-import { episodePath, homePath } from './locale'
+import { episodePath, homePath, statsPath } from './locale'
 
 export type Messages = typeof en
 
@@ -17,6 +17,7 @@ export function useLocalePaths() {
   return useMemo(
     () => ({
       home: homePath(),
+      stats: statsPath(),
       episode: (id: string) => episodePath(id),
     }),
     [],

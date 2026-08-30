@@ -7,6 +7,7 @@ import { EpisodePage } from './components/EpisodePage'
 import { Episodes } from './components/Episodes'
 import { NotFoundPage } from './components/NotFoundPage'
 import { PodcastLayout } from './components/PodcastLayout'
+import { StatsPage } from './components/StatsPage'
 import { ThemeProvider } from './components/ThemeProvider'
 import { findEpisode } from './lib/episode-id'
 
@@ -62,6 +63,7 @@ export function Root() {
             <Route path="/zh-CN/:episode" element={<LegacyEpisodeRedirect />} />
             <Route element={<Layout />}>
               <Route index element={<HomeRoute />} />
+              <Route path="stats" element={<StatsPage />} />
               <Route path=":episode" element={<EpisodeRoute />} />
               <Route path="*" element={<NotFoundPage />} />
             </Route>

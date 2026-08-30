@@ -73,6 +73,7 @@ describe('episode lookup against parsed fixture', () => {
     expect(parsePath(episodePath(id))).toEqual({
       episodeId: id,
       notFound: false,
+      isStats: false,
     })
     expect(findEpisode(episodes, parsePath(episodePath(id)).episodeId ?? '')?.id).toBe(
       id,

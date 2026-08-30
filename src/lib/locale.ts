@@ -1,11 +1,22 @@
 /** Unprefixed routes. /en and /zh-CN are leftover redirects, not a live locale. */
 
+export const STATS_SEGMENT = 'stats'
+
 export function homePath(): string {
   return '/'
 }
 
+export function statsPath(): string {
+  return `/${STATS_SEGMENT}`
+}
+
 export function episodePath(id: string): string {
   return `/${id}`
+}
+
+/** Paths written by prerender. `/stats` is reserved and is never an episode id. */
+export function prerenderPathList(episodeIds: string[]): string[] {
+  return [homePath(), statsPath(), ...episodeIds.map((id) => episodePath(id))]
 }
 
 export function normalizePathname(pathname: string): string {
@@ -37,6 +48,7 @@ export function pathToHtmlFile(pathname: string): string {
 export type ParsedPath = {
   episodeId: string | null
   notFound: boolean
+  isStats: boolean
 }
 
 export function parsePath(pathname: string): ParsedPath {
@@ -44,10 +56,13 @@ export function parsePath(pathname: string): ParsedPath {
   const parts = canonical.split('/').filter(Boolean)
 
   if (parts.length === 0) {
-    return { episodeId: null, notFound: false }
+    return { episodeId: null, notFound: false, isStats: false }
   }
   if (parts.length === 1) {
-    return { episodeId: parts[0], notFound: false }
+    if (parts[0] === STATS_SEGMENT) {
+      return { episodeId: null, notFound: false, isStats: true }
+    }
+    return { episodeId: parts[0], notFound: false, isStats: false }
   }
-  return { episodeId: null, notFound: true }
+  return { episodeId: null, notFound: true, isStats: false }
 }

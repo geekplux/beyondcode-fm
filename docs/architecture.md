@@ -71,14 +71,15 @@ The inline theme script in `index.html` reads `localStorage.theme` and toggles `
 
 ## Routing
 
-Canonical paths are unprefixed (`/`, `/{episodeId}`).
+Canonical paths are unprefixed (`/`, `/stats`, `/{episodeId}`). `/stats` is reserved and is never treated as an episode id.
 
 `src/lib/locale.ts`:
 
-- `homePath` / `episodePath` build those URLs
+- `homePath` / `statsPath` / `episodePath` build those URLs
+- `prerenderPathList` is `/`, `/stats`, then each episode id
 - `stripLocalePrefix` maps `/en` and `/zh-CN` (and nested episode paths) to the unprefixed form
-- `parsePath` is used by SSR meta: one segment = episode id, extra segments = 404
-- `pathToHtmlFile` is the prerender filename convention
+- `parsePath` is used by SSR meta: `/stats` sets `isStats`, one other segment = episode id, extra segments = 404
+- `pathToHtmlFile` is the prerender filename convention (`/stats` → `stats/index.html`)
 
 `src/Root.tsx` mirrors this with `<Navigate>` routes for `/en` and `/zh-CN`, plus `StripTrailingSlash`. Cloudflare `_redirects` repeats the same 301s at the edge.
 
@@ -98,6 +99,12 @@ Headless state lives in `src/lib/player.ts` (`audioReducer` + play/pause/seek he
 
 `src/lib/theme.ts`: stored preference is `system` | `light` | `dark`. `nextTheme` cycles light → dark → system. `ThemeSwitcher` only calls `cycleTheme`. `applyTheme` writes `html.dark` and `colorScheme`, with a one-frame transition disable.
 
+## Statistics dashboard
+
+`/stats` is a first-class route. The sidebar Statistics control (`PodcastLayout`) switches the main pane to `StatsPage`. Totals and chart series are computed by pure helpers in `src/lib/stats.ts` (`currentTotals`, `stackedSeries`, `platformSeries`). The page fetches `GET {VITE_FMSTATS_URL}/history` in the browser (`https://fmstats.fum.workers.dev` when the env var is unset). Charts are inline SVG: Total tab is a stacked bar; Bilibili / YouTube / Xiaoyuzhou tabs are area charts. Missing days are zero, never NaN.
+
+The stats API lives in the sibling `fmstats/` Worker (not in this Pages project). `_routes.json` stays Functions-only on `/api/og`.
+
 ## Directory icons
 
 `podcastConfig.directories` + RSS are rendered by `PodcastDirectoryLink`. Icons are brand SVGs or `/…webp` assets. Do not replace them with Lucide icons.
@@ -112,6 +119,7 @@ Cloudflare build settings set only:
 |---|---|
 | `PODCAST_RSS_URL` | `resolveRssUrl` |
 | `NEXT_PUBLIC_OG_URL` | `resolveOgBaseUrl` |
+| `VITE_FMSTATS_URL` | Optional. Stats dashboard `GET {origin}/history`. Defaults to `https://fmstats.fum.workers.dev`. |
 
 `DEFAULT_RSS_URL` in `podcast-config.ts` is the local/dev fallback when `PODCAST_RSS_URL` is unset. Do not rename the Cloudflare vars.
 

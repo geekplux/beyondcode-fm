@@ -57,6 +57,7 @@ If the live feed cannot be fetched, use `src/lib/fixtures/feed.xml`. Tests skip 
 | URL | Behavior |
 |---|---|
 | `/` | Episode list |
+| `/stats` | Statistics dashboard (reserved; never an episode id) |
 | `/:episode` | Episode page, or 404 if id unknown |
 | `/en`, `/en/:episode`, `/zh-CN`, `/zh-CN/:episode` | Redirect to unprefixed paths |
 | `/api/og?cover=` | PNG (Pages Function only) |
@@ -79,11 +80,13 @@ Do not rename these. Do not invent extra aliases.
 - `PodcastDirectoryLink` icons are brand marks, not Lucide stand-ins.
 - `_routes.json` must keep Functions limited to `/api/og`.
 - Locale prefixes are redirects, not a live language switcher. Copy is English via `src/messages/en.json`.
+- `/stats` is reserved. `parsePath('/stats').isStats` is true; it is never an episode id.
 
 ## Where to change what
 
 - UI / copy: `src/components`, `src/messages/en.json`, `src/index.css`
 - Routing: `src/Root.tsx`, `src/lib/locale.ts`
+- Statistics math: `src/lib/stats.ts` (React must not duplicate totals/series)
 - Feed parse: `src/lib/rss.ts`, `src/lib/load-rss.ts`
 - Player logic: `src/lib/player.ts` (React wrapper is `AudioProvider`)
 - OG card: `src/lib/og-image.tsx`, `src/lib/og.ts`, `functions/api/og.tsx`

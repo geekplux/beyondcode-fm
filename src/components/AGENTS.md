@@ -4,7 +4,9 @@ Rendered UI. Do not restyle or replace brand marks while working on unrelated ta
 
 | File | Purpose |
 |---|---|
-| `PodcastLayout.tsx` | Shell: cover, about, listen row, hosts, seeded waveform, player dock, theme button |
+| `PodcastLayout.tsx` | Shell: cover, Statistics control, about, listen row, hosts, seeded waveform, player dock, theme button |
+| `StatsPage.tsx` | `/stats` dashboard: totals + three metric sections with Total/Bilibili/YouTube/Xiaoyuzhou tabs |
+| `StatsCharts.tsx` | Stacked-bar Total chart and per-platform area charts |
 | `Episodes.tsx` | Home list |
 | `EpisodePage.tsx` | Show notes + large play button |
 | `PodcastDirectoryLink.tsx` | Brand icons for `podcastConfig.directories` + RSS. Not Lucide stand-ins. |

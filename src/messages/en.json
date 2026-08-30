@@ -4,7 +4,23 @@
     "show_more": "Show more",
     "listen": "Listen",
     "homepage": "Homepage",
-    "hosted_by": "Hosted by"
+    "hosted_by": "Hosted by",
+    "statistics": "Statistics"
+  },
+  "StatsPage": {
+    "title": "Statistics",
+    "lede": "Daily snapshots from YouTube, Bilibili, and Xiaoyuzhou.",
+    "total_subscribers": "Total Subscribers",
+    "total_views": "Total Views",
+    "total_comments": "Total Comments",
+    "subscribers": "Subscribers / followers",
+    "views": "Views / listens",
+    "comments": "Comments",
+    "tab_total": "Total",
+    "tab_bilibili": "Bilibili",
+    "tab_youtube": "YouTube",
+    "tab_xiaoyuzhou": "Xiaoyuzhou",
+    "unavailable": "Live numbers will appear once the stats API is reachable."
   },
   "IndexPage": {
     "episodes": "Episodes",

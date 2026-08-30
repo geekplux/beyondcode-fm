@@ -5,7 +5,7 @@ import { episodes, podcast } from 'virtual:podcast-feed'
 import { Root } from './Root'
 import { findEpisode } from './lib/episode-id'
 import { htmlToText } from './lib/html'
-import { normalizePathname, parsePath } from './lib/locale'
+import { normalizePathname, parsePath, prerenderPathList } from './lib/locale'
 import { OG_HEIGHT, OG_WIDTH, ogImageUrl } from './lib/og'
 import type { RenderResult } from './lib/ssr-template'
 
@@ -30,6 +30,9 @@ export function render(url: string): RenderResult {
   if (parsed.notFound) {
     status = 404
     title = `404 | ${podcast.title}`
+  } else if (parsed.isStats) {
+    title = `Statistics | ${podcast.title}`
+    description = 'Total subscribers, views, and comments across YouTube, Bilibili, and Xiaoyuzhou.'
   } else if (parsed.episodeId) {
     const episode = findEpisode(episodes, parsed.episodeId)
     if (!episode) {
@@ -78,9 +81,5 @@ export function render(url: string): RenderResult {
 }
 
 export function getPrerenderPaths() {
-  const paths = ['/']
-  for (const episode of episodes) {
-    paths.push(`/${episode.id}`)
-  }
-  return paths
+  return prerenderPathList(episodes.map((episode) => episode.id))
 }

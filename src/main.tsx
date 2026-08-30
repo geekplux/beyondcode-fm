@@ -13,6 +13,7 @@ const app = (
   </BrowserRouter>
 )
 
+// Hydrate only when the SSR shell was generated for this path (data-path).
 const ssrPath = el.getAttribute('data-path')
 const currentPath = normalizePathname(window.location.pathname)
 

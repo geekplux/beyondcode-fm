@@ -8,6 +8,13 @@ import { resolveRssUrl } from './src/lib/podcast-config'
 import { pathToHtmlFile, stripLocalePrefix } from './src/lib/locale'
 import { applyHtmlTemplate } from './src/lib/ssr-template'
 
+/**
+ * Build-time podcast plugin:
+ * - fetches RSS in Node (never in the browser) and exposes virtual:podcast-feed
+ * - SSR-renders HTML in `vite dev`
+ * - maps preview URLs onto prerendered dist/ files
+ * Skips feed load and middleware when VITEST is set.
+ */
 const VIRTUAL_ID = 'virtual:podcast-feed'
 const RESOLVED_VIRTUAL_ID = `\0${VIRTUAL_ID}`
 

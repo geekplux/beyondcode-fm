@@ -2,6 +2,8 @@
 
 Vanilla React port of the old `headless` Next.js site (Vite + React Router + Tailwind). The site builds to a static Cloudflare Pages `dist/` folder (prerendered routes plus `404.html`). Open Graph images are generated at request time by a Pages Function using [`@cloudflare/pages-plugin-vercel-og`](https://developers.cloudflare.com/pages/functions/plugins/vercel-og/) (`GET /api/og?cover=`).
 
+Coding agents: start at [`AGENTS.md`](AGENTS.md), then [`docs/architecture.md`](docs/architecture.md).
+
 Host: Cloudflare Pages (`beyondcode-fm`).
 
 ## Environment

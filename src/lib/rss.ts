@@ -3,6 +3,8 @@ import { XMLParser } from 'fast-xml-parser'
 import type { Episode, Podcast, PodcastFeed } from '../types'
 import { encodeEpisodeId } from './episode-id'
 
+/** Parse a podcast RSS document into Podcast + Episode[]. */
+
 const parser = new XMLParser({
   ignoreAttributes: false,
   attributeNamePrefix: '@_',

@@ -1,3 +1,5 @@
+/** Headless audio state. React bindings live in AudioProvider — do not duplicate this reducer. */
+
 export type AudioTrack = {
   src: string
   type: string

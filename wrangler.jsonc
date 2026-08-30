@@ -3,5 +3,6 @@
   "name": "beyondcode-fm",
   "pages_build_output_dir": "./dist",
   "compatibility_date": "2026-08-29",
+  // nodejs_compat is required by @cloudflare/pages-plugin-vercel-og.
   "compatibility_flags": ["nodejs_compat"]
 }

@@ -1,3 +1,7 @@
+/**
+ * Second half of `npm run build`. Requires dist/index.html from `vite build`.
+ * Writes one HTML file per getPrerenderPaths() entry plus dist/404.html.
+ */
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'

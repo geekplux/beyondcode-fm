@@ -1,3 +1,5 @@
+/** English-only. Messages keep next-intl-style tokens; formatMessage interpolates them. */
+
 import { useMemo } from 'react'
 
 import en from '../messages/en.json'

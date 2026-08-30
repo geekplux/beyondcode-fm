@@ -1,8 +1,9 @@
 import type { Episode } from '../types'
 
 /**
- * Encode episode id.
- * (Certain episode id contains special characters that are not allowed in URL)
+ * RSS GUIDs that are URLs are illegal as path segments. Non-http ids stay as-is.
+ * http(s) ids become the last pathname segment, or the query string if the
+ * pathname is empty. findEpisode matches that id or a `link` suffix.
  */
 export function encodeEpisodeId(raw: string): string {
   if (!raw.startsWith('http')) {

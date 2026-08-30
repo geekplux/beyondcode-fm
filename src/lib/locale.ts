@@ -1,3 +1,5 @@
+/** Unprefixed routes. /en and /zh-CN are leftover redirects, not a live locale. */
+
 export function homePath(): string {
   return '/'
 }

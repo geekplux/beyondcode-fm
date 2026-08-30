@@ -1,3 +1,5 @@
+/** Cloudflare Pages Function — not a Vite route. Keep _routes.json limited to /api/og. */
+
 import React from 'react'
 import { ImageResponse } from '@cloudflare/pages-plugin-vercel-og/api'
 

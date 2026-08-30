@@ -24,6 +24,7 @@ export const podcastConfig: PodcastConfig = {
   ],
 }
 
+/** Cloudflare sets PODCAST_RSS_URL. DEFAULT_RSS_URL is the local fallback. */
 export function resolveRssUrl(
   env: Record<string, string | undefined> = process.env,
 ): string {

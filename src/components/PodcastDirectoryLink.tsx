@@ -4,6 +4,8 @@ import { useMemo } from 'react'
 
 import { clsxm } from '../lib/clsxm'
 
+/** Brand marks for podcast directories. Do not replace with Lucide icons. */
+
 type DirectoryInfo = {
   label: string
   domains: readonly string[]
